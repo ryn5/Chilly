@@ -18,7 +18,7 @@ async def send_message(message, user_message):
 
 
 def run_discord_bot():
-    load_dotenv('.env')
+    load_dotenv('.env')  # Ask for .env file and paste into root
     TOKEN = os.getenv('DISCORD_TOKEN')
     client = commands.Bot(command_prefix='<', intents=discord.Intents.all())
 
@@ -43,12 +43,15 @@ def run_discord_bot():
 
         await send_message(message, user_message)
 
+    # Slash commands
+    # For details on ctx, go to:
+    # https://discordpy.readthedocs.io/en/stable/ext/commands/api.html?highlight=context#discord.ext.commands.Context
     @client.tree.command(name="roll", description="Roll a 6-sided die")
     async def roll_cmd(ctx):
         await roll.execute(ctx, 6)
 
     @client.tree.command(name="rolln", description="Roll a die with the given upper bound")
-    @app_commands.describe(number="Pick an upper bound")
+    @app_commands.describe(number="Pick an upper bound")  # Parameters separated by commas
     async def roll_n_cmd(ctx, number: int):
         await roll.execute(ctx, number)
 
