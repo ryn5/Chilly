@@ -1,3 +1,4 @@
+import os
 import discord
 import responses
 
@@ -12,10 +13,9 @@ async def send_message(message, user_message):
 
 
 def run_discord_bot():
-    TOKEN = 'MTA3ODY2NTkwNjk5MDg3ODgxMg.G6v8MP.1YWhJI4klj_g7sd2_rVPu8K613Syan0vNLrn8I'
-    intents = discord.Intents.default()
-    intents.message_content = True
-    client = discord.Client(intents=intents)
+    load_dotenv('.env')
+    TOKEN = os.getenv('DISCORD_TOKEN')
+    client = commands.Bot(command_prefix='<', intents=discord.Intents.all())
 
     @client.event
     async def on_ready():
